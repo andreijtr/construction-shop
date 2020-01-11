@@ -3,10 +3,8 @@ package com.sda.construction.rest;
 import com.sda.construction.dto.CimentDTO;
 import com.sda.construction.service.CimentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,5 +18,11 @@ public class CimentController {
     @GetMapping("/getByProducator")
     public List<CimentDTO> findByProducator(@RequestParam String producator) {
         return cimentService.findByProducator(producator);
+    }
+
+    @PostMapping(path = "/addCiment", consumes = "application/json")
+    public ResponseEntity addCiment(@RequestBody CimentDTO cimentDTO) {
+        cimentService.saveCiment(cimentDTO);
+        return ResponseEntity.ok().build();
     }
 }

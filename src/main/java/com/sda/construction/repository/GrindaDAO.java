@@ -13,6 +13,32 @@ import java.util.List;
 @Repository
 public class GrindaDAO {
 
+    public void saveOrUpdate(Grinda grinda) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.save(grinda);
+
+        transaction.commit();
+        session.close();
+    }
+
+    public List<Grinda> findByParameters(Grinda grinda) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Query query = session.createNamedQuery("findByParameters", Grinda.class);
+        query.setParameter("lemn", grinda.getLemn());
+        query.setParameter("lungime", grinda.getLungime());
+        query.setParameter("grosime", grinda.getGrosime());
+
+        List<Grinda> grindaList = query.getResultList();
+
+        transaction.commit();
+        session.close();
+        return grindaList;
+    }
+
     public List<Grinda> findAll() {
         //conexiunea cu baza de date
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();

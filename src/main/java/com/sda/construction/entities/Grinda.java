@@ -3,8 +3,12 @@ package com.sda.construction.entities;
 import javax.persistence.*;
 
 @NamedQueries({
-        @NamedQuery(name = "findAll", query = "select g from Grinda g"),
-        @NamedQuery(name = "findByLemn", query = "select g from Grinda g where g.lemn = :lemn")
+        @NamedQuery(name = "findAll",
+                    query = "select g from Grinda g"),
+        @NamedQuery(name = "findByLemn",
+                    query = "select g from Grinda g where g.lemn = :lemn"),
+        @NamedQuery(name = "findByParameters",
+                    query = "select g from Grinda g where g.lungime = :lungime and g.lemn = :lemn and g.grosime = :grosime")
 })
 
 @Entity
@@ -27,7 +31,6 @@ public class Grinda {
 
     @Column(name = "cantitate")
     private int cantitate;
-
 
     public long getId() {
         return id;

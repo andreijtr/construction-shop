@@ -19,6 +19,17 @@ public class GrindaDTO {
         this.cantitate = cantitate;
     }
 
+    @Override
+    public String toString() {
+        return "GrindaDTO{" +
+                "lungime=" + lungime +
+                ", grosime=" + grosime +
+                ", lemn='" + lemn + '\'' +
+                ", pret=" + pret +
+                ", cantitate=" + cantitate +
+                '}';
+    }
+
     public double getLungime() {
         return lungime;
     }

@@ -3,6 +3,7 @@ package com.sda.construction.service;
 import com.sda.construction.dto.GrindaDTO;
 import com.sda.construction.entities.Grinda;
 import com.sda.construction.repository.GrindaDAO;
+import com.sda.construction.service.convertors.GrindaConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,20 @@ public class GrindaService {
 
     @Autowired
     private GrindaDAO grindaDAO;
+
+    @Autowired
+    private GrindaConvertor grindaConvertor;
+
+    public List<GrindaDTO> findByParameters(GrindaDTO grindaDTO) {
+        Grinda grinda = grindaConvertor.convertGrindaDTOInGrinda(grindaDTO);
+        List<Grinda> grindaList = grindaDAO.findByParameters(grinda);
+        return grindaConvertor.convertGrindaListToGrindaDTOList(grindaList);
+    }
+
+    public void saveGrinda(GrindaDTO grindaDTO) {
+        Grinda grinda = grindaConvertor.convertGrindaDTOInGrinda(grindaDTO);
+        grindaDAO.saveOrUpdate(grinda);
+    }
 
     public List<GrindaDTO> findAll() {
         List<GrindaDTO> grinziDTO = new ArrayList<>();

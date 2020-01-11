@@ -13,6 +13,17 @@ import java.util.List;
 @Repository
 public class CimentDAO {
 
+    public void saveOrUpdate(Ciment ciment) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.save(ciment);
+
+        transaction.commit();
+        session.close();
+    }
+
     public List<Ciment> findByProducator(String producator) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
